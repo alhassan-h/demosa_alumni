@@ -1,6 +1,6 @@
 // Mock data for DEMOSA application - Can be replaced with API calls
 
-import { User, NewsPost, Election, ForumTopic, Album, Event, Job, Candidate, Position } from '../types';
+import { User, NewsPost, Election, ForumTopic, Album, Event, Job, Candidate, Position, MentorshipRequest, Donation } from '../types';
 
 // Mock Users
 export const mockUsers: User[] = [
@@ -326,6 +326,61 @@ export const mockJobs: Job[] = [
     postedAt: '2026-01-18T14:00:00Z',
     applicationUrl: 'https://example.com/apply',
     isActive: true,
+  },
+];
+
+// Mock Mentorship Requests
+export const mockMentorshipRequests: MentorshipRequest[] = [
+  {
+    id: '1',
+    mentee: mockUsers[3],
+    expertise: 'Software Engineering',
+    description: 'Looking for guidance on transitioning into a tech career and building a strong portfolio.',
+    status: 'matched',
+    mentor: mockUsers[0],
+  },
+  {
+    id: '2',
+    mentee: mockUsers[1],
+    expertise: 'Business & Entrepreneurship',
+    description: 'Interested in learning how to scale a consulting practice and manage a growing team.',
+    status: 'matched',
+    mentor: mockUsers[2],
+  },
+  {
+    id: '3',
+    mentee: mockUsers[2],
+    expertise: 'Medicine',
+    description: 'Seeking advice on specializing in pediatrics after residency.',
+    status: 'pending',
+  },
+];
+
+// Mock Donations
+export const mockDonations: Donation[] = [
+  {
+    id: '1',
+    donor: mockUsers[0],
+    amount: 100000,
+    purpose: 'Scholarship Fund',
+    isAnonymous: false,
+    date: '2026-01-20T10:00:00Z',
+  },
+  {
+    id: '2',
+    donor: mockUsers[2],
+    amount: 50000,
+    purpose: 'School Infrastructure',
+    isAnonymous: true,
+    date: '2026-01-18T14:00:00Z',
+  },
+  {
+    id: '3',
+    donor: mockUsers[1],
+    amount: 25000,
+    purpose: 'General DEMOSA Fund',
+    isAnonymous: false,
+    date: '2026-01-15T09:00:00Z',
   },
 ];
 

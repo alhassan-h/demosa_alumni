@@ -2,7 +2,7 @@ import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'luc
 
 export function Footer() {
   return (
-    <footer className="bg-[#0a1f44] text-gray-300 mt-auto">
+    <footer className="bg-navy text-gray-300 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* About */}
@@ -13,16 +13,16 @@ export function Footer() {
               fostering lifelong bonds and supporting our alma mater.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-[#1a3a6b] rounded-lg">
+              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-navy-light rounded-lg">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-[#1a3a6b] rounded-lg">
+              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-navy-light rounded-lg">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-[#1a3a6b] rounded-lg">
+              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-navy-light rounded-lg">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-[#1a3a6b] rounded-lg">
+              <a href="#" className="hover:text-white transition-colors p-2 hover:bg-navy-light rounded-lg">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
@@ -66,6 +66,9 @@ export function Footer() {
           {/* School Link */}
           <div>
             <h3 className="text-white font-bold text-lg mb-5">Our School</h3>
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 p-1.5 shadow-md">
+              <img src="/logos/dss-abu-logo.png" alt="Demonstration Secondary School, ABU Zaria crest" className="w-full h-full object-contain" />
+            </div>
             <p className="text-sm mb-5 leading-relaxed">
               Visit the official Demonstration Secondary School website to learn more about our heritage.
             </p>
@@ -73,14 +76,14 @@ export function Footer() {
               href="https://dss.abu.edu.ng/website/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-5 py-3 bg-[#2563eb] text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-semibold shadow-lg"
+              className="inline-block px-5 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors text-sm font-semibold shadow-lg"
             >
               Visit School Website
             </a>
           </div>
         </div>
 
-        <div className="border-t border-blue-900 mt-12 pt-8 text-center text-sm">
+        <div className="border-t border-navy-light mt-12 pt-8 text-center text-sm">
           <p className="text-gray-400">&copy; {new Date().getFullYear()} DEMOSA - Demonstration Secondary School Old Students Association. All rights reserved.</p>
           <p className="mt-3 text-xs text-gray-500">
             Proudly serving alumni since 1975 | Building connections, preserving heritage

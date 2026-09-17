@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { User, Mail, Lock, Calendar, MapPin, Briefcase } from 'lucide-react';
+import { Button } from './ui/button';
+import { IconInput } from './shared/IconInput';
 
 interface AuthPageProps {
   mode: 'login' | 'register';
@@ -20,7 +22,7 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Mock authentication - replace with actual API call
     const mockUser = {
       id: '1',
@@ -47,15 +49,15 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
   const years = Array.from({ length: 60 }, (_, i) => currentYear - i);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1f44] via-[#1a3a6b] to-[#0a1f44] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-navy via-navy-light to-navy flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <div className="bg-white rounded-2xl shadow-2xl p-10">
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#0a1f44] to-[#1a3a6b] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-              <span className="text-white font-bold text-2xl">DSS</span>
+            <div className="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg p-2">
+              <img src="/logos/demosa-logo.png" alt="DEMOSA logo" className="w-full h-full object-contain" />
             </div>
-            <h2 className="text-4xl font-bold text-[#0a1f44] mb-3">
+            <h2 className="text-4xl font-bold text-navy mb-3">
               {mode === 'login' ? 'Welcome Back!' : 'Join DEMOSA'}
             </h2>
             <p className="text-gray-600 text-base">
@@ -72,18 +74,16 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
                 <label className="block text-sm font-bold text-gray-700 mb-2">
                   Full Name
                 </label>
-                <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
+                <IconInput
+                  icon={User}
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                  className="h-12"
+                  required
+                />
               </div>
             )}
 
@@ -91,36 +91,32 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Email Address
               </label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition"
-                  placeholder="your.email@example.com"
-                  required
-                />
-              </div>
+              <IconInput
+                icon={Mail}
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="your.email@example.com"
+                className="h-12"
+                required
+              />
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition"
-                  placeholder="Enter your password"
-                  required
-                />
-              </div>
+              <IconInput
+                icon={Lock}
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                className="h-12"
+                required
+              />
             </div>
 
             {mode === 'register' && (
@@ -129,18 +125,16 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     Confirm Password
                   </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition"
-                      placeholder="Confirm your password"
-                      required
-                    />
-                  </div>
+                  <IconInput
+                    icon={Lock}
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Confirm your password"
+                    className="h-12"
+                    required
+                  />
                 </div>
 
                 <div>
@@ -148,12 +142,12 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
                     Graduation Year
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
                     <select
                       name="graduationYear"
                       value={formData.graduationYear}
                       onChange={handleChange}
-                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition appearance-none bg-white"
+                      className="w-full h-12 pl-11 pr-4 border border-input rounded-md focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-ring outline-none transition appearance-none bg-input-background text-base"
                       required
                     >
                       <option value="">Select your graduation year</option>
@@ -170,44 +164,37 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     Occupation (Optional)
                   </label>
-                  <div className="relative">
-                    <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <input
-                      type="text"
-                      name="occupation"
-                      value={formData.occupation}
-                      onChange={handleChange}
-                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition"
-                      placeholder="Your current occupation"
-                    />
-                  </div>
+                  <IconInput
+                    icon={Briefcase}
+                    type="text"
+                    name="occupation"
+                    value={formData.occupation}
+                    onChange={handleChange}
+                    placeholder="Your current occupation"
+                    className="h-12"
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     Location (Optional)
                   </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <input
-                      type="text"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2563eb] focus:border-transparent outline-none transition"
-                      placeholder="City, Country"
-                    />
-                  </div>
+                  <IconInput
+                    icon={MapPin}
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    placeholder="City, Country"
+                    className="h-12"
+                  />
                 </div>
               </>
             )}
 
-            <button
-              type="submit"
-              className="w-full bg-[#0a1f44] hover:bg-[#1a3a6b] text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl mt-6"
-            >
+            <Button type="submit" className="w-full h-auto py-4 rounded-xl bg-navy hover:bg-navy-light text-white font-bold shadow-lg hover:shadow-xl mt-6">
               {mode === 'login' ? 'Sign In' : 'Create Account'}
-            </button>
+            </Button>
           </form>
 
           {/* Footer */}
@@ -216,7 +203,7 @@ export function AuthPage({ mode, onLogin, onNavigate }: AuthPageProps) {
               {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
               <button
                 onClick={() => onNavigate(mode === 'login' ? 'register' : 'login')}
-                className="text-[#2563eb] hover:text-blue-700 font-bold"
+                className="text-accent hover:text-accent-dark font-bold"
               >
                 {mode === 'login' ? 'Register here' : 'Sign in'}
               </button>

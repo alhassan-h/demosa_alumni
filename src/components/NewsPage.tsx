@@ -1,11 +1,21 @@
 import { useState } from 'react';
-import { Heart, MessageSquare, Share2, Calendar, Filter } from 'lucide-react';
+import { Heart, MessageSquare, Share2, Calendar, Filter, Plus } from 'lucide-react';
 import { mockNewsPosts } from '../data/mockData';
 import { NewsPost } from '../types';
+import { Card } from './ui/card';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import { PageContainer } from './shared/PageContainer';
 
 interface NewsPageProps {
   currentUser: any;
 }
+
+const categoryVariant: Record<NewsPost['category'], 'success' | 'info' | 'outline'> = {
+  event: 'success',
+  announcement: 'info',
+  general: 'outline',
+};
 
 export function NewsPage({ currentUser }: NewsPageProps) {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'demosa' | 'myClass'>('all');
@@ -25,56 +35,44 @@ export function NewsPage({ currentUser }: NewsPageProps) {
     );
   };
 
+  const filters: { key: typeof selectedFilter; label: string }[] = [
+    { key: 'all', label: 'All News' },
+    { key: 'demosa', label: 'DEMOSA News' },
+    { key: 'myClass', label: `Class of ${currentUser.graduationYear}` },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-grey-50">
+      <PageContainer size="narrow" className="py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-2">News & Updates</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-navy mb-2">News & Updates</h1>
           <p className="text-gray-600">Stay connected with the latest from DEMOSA and your class</p>
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white rounded-xl shadow-md p-4 mb-6">
+        <Card className="p-4 mb-6">
           <div className="flex items-center space-x-2 overflow-x-auto">
             <Filter className="w-5 h-5 text-gray-500 flex-shrink-0" />
-            <button
-              onClick={() => setSelectedFilter('all')}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors ${
-                selectedFilter === 'all'
-                  ? 'bg-[#1e40af] text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              All News
-            </button>
-            <button
-              onClick={() => setSelectedFilter('demosa')}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors ${
-                selectedFilter === 'demosa'
-                  ? 'bg-[#1e40af] text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              DEMOSA News
-            </button>
-            <button
-              onClick={() => setSelectedFilter('myClass')}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors ${
-                selectedFilter === 'myClass'
-                  ? 'bg-[#1e40af] text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Class of {currentUser.graduationYear}
-            </button>
+            {filters.map((filter) => (
+              <Button
+                key={filter.key}
+                variant={selectedFilter === filter.key ? 'default' : 'secondary'}
+                onClick={() => setSelectedFilter(filter.key)}
+                className={`h-auto px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap ${
+                  selectedFilter === filter.key ? 'bg-navy hover:bg-navy-light' : ''
+                }`}
+              >
+                {filter.label}
+              </Button>
+            ))}
           </div>
-        </div>
+        </Card>
 
         {/* News Feed */}
         <div className="space-y-6">
           {filteredPosts.map((post) => (
-            <article key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+            <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow py-0 gap-0">
               {/* Image */}
               {post.imageUrl && (
                 <div className="h-64 overflow-hidden">
@@ -99,7 +97,7 @@ export function NewsPage({ currentUser }: NewsPageProps) {
                       />
                     )}
                     <div>
-                      <p className="font-semibold text-[#1e293b]">{post.author.name}</p>
+                      <p className="font-semibold text-navy">{post.author.name}</p>
                       <div className="flex items-center text-sm text-gray-500 space-x-2">
                         <Calendar className="w-4 h-4" />
                         <span>{new Date(post.createdAt).toLocaleDateString()}</span>
@@ -112,21 +110,11 @@ export function NewsPage({ currentUser }: NewsPageProps) {
                       </div>
                     </div>
                   </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      post.category === 'event'
-                        ? 'bg-green-100 text-green-700'
-                        : post.category === 'announcement'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    {post.category.toUpperCase()}
-                  </span>
+                  <Badge variant={categoryVariant[post.category]}>{post.category.toUpperCase()}</Badge>
                 </div>
 
                 {/* Title & Content */}
-                <h2 className="text-2xl font-bold text-[#1e293b] mb-3">{post.title}</h2>
+                <h2 className="text-2xl font-bold text-navy mb-3">{post.title}</h2>
                 <p className="text-gray-700 leading-relaxed mb-6">{post.content}</p>
 
                 {/* Actions */}
@@ -138,30 +126,30 @@ export function NewsPage({ currentUser }: NewsPageProps) {
                     <Heart className="w-5 h-5" />
                     <span className="font-semibold">{post.likes}</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-gray-600 hover:text-[#1e40af] transition-colors">
+                  <button className="flex items-center space-x-2 text-gray-600 hover:text-accent transition-colors">
                     <MessageSquare className="w-5 h-5" />
                     <span className="font-semibold">{post.comments.length}</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-gray-600 hover:text-[#1e40af] transition-colors">
+                  <button className="flex items-center space-x-2 text-gray-600 hover:text-accent transition-colors">
                     <Share2 className="w-5 h-5" />
                     <span className="font-semibold">Share</span>
                   </button>
                 </div>
               </div>
-            </article>
+            </Card>
           ))}
         </div>
 
         {/* Create Post Button */}
         {currentUser.isAdmin || currentUser.isYearGroupAdmin ? (
           <div className="fixed bottom-8 right-8">
-            <button className="bg-[#dc2626] hover:bg-red-700 text-white px-6 py-4 rounded-full shadow-2xl font-semibold flex items-center space-x-2 transition-colors">
-              <span className="text-2xl">+</span>
-              <span>Create Post</span>
-            </button>
+            <Button variant="destructive" className="h-auto px-6 py-4 rounded-full shadow-2xl font-semibold">
+              <Plus className="w-5 h-5" />
+              Create Post
+            </Button>
           </div>
         ) : null}
-      </div>
+      </PageContainer>
     </div>
   );
 }

@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { MessageSquare, Eye, Pin, Calendar, Send } from 'lucide-react';
 import { mockForumTopics } from '../data/mockData';
 import { ForumTopic } from '../types';
+import { Card } from './ui/card';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import { PageContainer } from './shared/PageContainer';
+import { EmptyState } from './shared/EmptyState';
 
 interface ForumsPageProps {
   currentUser: any;
@@ -20,17 +25,18 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
 
   if (selectedTopic) {
     return (
-      <div className="min-h-screen bg-[#f8fafc]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <button
+      <div className="min-h-screen bg-grey-50">
+        <PageContainer size="narrow" className="py-8">
+          <Button
+            variant="link"
             onClick={() => setSelectedTopic(null)}
-            className="mb-6 text-[#1e40af] hover:text-blue-700 font-semibold flex items-center"
+            className="mb-6 px-0 text-accent hover:text-accent-dark font-semibold"
           >
             ← Back to Forums
-          </button>
+          </Button>
 
           {/* Topic */}
-          <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+          <Card className="p-6 mb-6">
             <div className="flex items-start mb-4">
               {selectedTopic.author.profilePhoto && (
                 <img
@@ -41,28 +47,28 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
               )}
               <div className="flex-1">
                 <div className="flex items-center mb-2">
-                  <h3 className="font-bold text-[#1e293b] mr-3">{selectedTopic.author.name}</h3>
+                  <h3 className="font-bold text-navy mr-3">{selectedTopic.author.name}</h3>
                   <span className="text-sm text-gray-500">
                     Class of {selectedTopic.author.graduationYear}
                   </span>
                   {selectedTopic.isPinned && (
-                    <Pin className="w-4 h-4 text-[#f59e0b] ml-auto" />
+                    <Pin className="w-4 h-4 text-warning ml-auto" />
                   )}
                 </div>
                 <p className="text-sm text-gray-500 mb-4 flex items-center">
                   <Calendar className="w-4 h-4 mr-1" />
                   {new Date(selectedTopic.createdAt).toLocaleString()}
                 </p>
-                <h1 className="text-2xl font-bold text-[#1e293b] mb-4">{selectedTopic.title}</h1>
+                <h1 className="text-2xl font-bold text-navy mb-4">{selectedTopic.title}</h1>
                 <p className="text-gray-700 leading-relaxed">{selectedTopic.content}</p>
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Replies */}
           <div className="space-y-4 mb-6">
             {selectedTopic.replies.map((reply) => (
-              <div key={reply.id} className="bg-white rounded-xl shadow-md p-6">
+              <Card key={reply.id} className="p-6">
                 <div className="flex items-start">
                   {reply.author.profilePhoto && (
                     <img
@@ -73,7 +79,7 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
                   )}
                   <div className="flex-1">
                     <div className="flex items-center mb-2">
-                      <h4 className="font-bold text-[#1e293b] mr-3">{reply.author.name}</h4>
+                      <h4 className="font-bold text-navy mr-3">{reply.author.name}</h4>
                       <span className="text-sm text-gray-500">
                         Class of {reply.author.graduationYear}
                       </span>
@@ -84,60 +90,57 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
                     <p className="text-gray-700 leading-relaxed">{reply.content}</p>
                   </div>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
 
           {/* Reply Form */}
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="text-xl font-bold text-[#1e293b] mb-4">Post a Reply</h3>
+          <Card className="p-6">
+            <h3 className="text-xl font-bold text-navy mb-4">Post a Reply</h3>
             <form onSubmit={handleSubmitReply}>
               <textarea
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
                 placeholder="Share your thoughts..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e40af] focus:border-transparent outline-none resize-none"
+                className="w-full px-4 py-3 border border-input rounded-lg focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-ring outline-none resize-none bg-input-background"
                 rows={4}
                 required
               />
-              <button
-                type="submit"
-                className="mt-4 px-6 py-3 bg-[#1e40af] hover:bg-blue-700 text-white rounded-lg font-semibold flex items-center transition-colors"
-              >
+              <Button type="submit" variant="accent" className="mt-4 h-auto px-6 py-3 rounded-lg font-semibold">
                 <Send className="w-4 h-4 mr-2" />
                 Post Reply
-              </button>
+              </Button>
             </form>
-          </div>
-        </div>
+          </Card>
+        </PageContainer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-grey-50">
+      <PageContainer className="py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-2">Discussion Forums</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-navy mb-2">Discussion Forums</h1>
           <p className="text-gray-600">Connect and engage with fellow alumni</p>
         </div>
 
         {/* Create Topic Button */}
         <div className="mb-6">
-          <button className="px-6 py-3 bg-[#1e40af] hover:bg-blue-700 text-white rounded-lg font-semibold flex items-center transition-colors">
+          <Button variant="accent" className="h-auto px-6 py-3 rounded-lg font-semibold">
             <MessageSquare className="w-5 h-5 mr-2" />
             Start New Discussion
-          </button>
+          </Button>
         </div>
 
         {/* Topics List */}
         <div className="space-y-4">
           {topics.map((topic) => (
-            <div
+            <Card
               key={topic.id}
               onClick={() => setSelectedTopic(topic)}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-shadow cursor-pointer"
+              className="p-6 hover:shadow-xl transition-shadow cursor-pointer"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-start flex-1">
@@ -151,9 +154,9 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
                   <div className="flex-1">
                     <div className="flex items-center mb-2">
                       {topic.isPinned && (
-                        <Pin className="w-4 h-4 text-[#f59e0b] mr-2" />
+                        <Pin className="w-4 h-4 text-warning mr-2" />
                       )}
-                      <h3 className="text-xl font-bold text-[#1e293b] hover:text-[#1e40af]">
+                      <h3 className="text-xl font-bold text-navy hover:text-accent">
                         {topic.title}
                       </h3>
                     </div>
@@ -165,15 +168,11 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
                       {topic.yearGroup && (
                         <>
                           <span>•</span>
-                          <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                            Class of {topic.yearGroup}
-                          </span>
+                          <Badge variant="info">Class of {topic.yearGroup}</Badge>
                         </>
                       )}
                       <span>•</span>
-                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
-                        {topic.category}
-                      </span>
+                      <Badge variant="outline">{topic.category}</Badge>
                     </div>
                   </div>
                 </div>
@@ -188,21 +187,19 @@ export function ForumsPage({ currentUser }: ForumsPageProps) {
                   </div>
                 </div>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
 
         {topics.length === 0 && (
-          <div className="text-center py-20">
-            <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No discussions yet</h3>
-            <p className="text-gray-500 mb-6">Be the first to start a conversation!</p>
-            <button className="px-6 py-3 bg-[#1e40af] hover:bg-blue-700 text-white rounded-lg font-semibold">
-              Start New Discussion
-            </button>
-          </div>
+          <EmptyState
+            icon={MessageSquare}
+            title="No discussions yet"
+            description="Be the first to start a conversation!"
+            action={{ label: 'Start New Discussion', onClick: () => {} }}
+          />
         )}
-      </div>
+      </PageContainer>
     </div>
   );
 }

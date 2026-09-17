@@ -129,16 +129,16 @@ export default function App() {
       
       case 'profile':
         return (
-          <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center">
+          <div className="min-h-screen bg-grey-50 flex items-center justify-center">
             <div className="bg-white rounded-xl shadow-md p-8 max-w-2xl w-full mx-4">
-              <h1 className="text-3xl font-bold text-[#1e293b] mb-6">Profile Page</h1>
+              <h1 className="text-3xl font-bold text-navy mb-6">Profile Page</h1>
               <p className="text-gray-600 mb-4">
                 This is a placeholder for the user profile page. In a full implementation,
                 this would show detailed user information and allow editing.
               </p>
               <button
                 onClick={() => handleNavigate('dashboard')}
-                className="px-6 py-3 bg-[#1e40af] hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+                className="px-6 py-3 bg-accent hover:bg-accent-dark text-white rounded-lg font-semibold transition-colors"
               >
                 Back to Dashboard
               </button>
